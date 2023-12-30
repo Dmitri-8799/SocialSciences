@@ -6,6 +6,12 @@
              x:Class="SocialSciencesDecember2023.RadioButtons3.QuizActivityRB3"
              Title="QuizActivityRB3">
     <VerticalStackLayout>
+        <Label Text="{Binding item.Question}">
+
+
+        </Label>
+        <RadioButton Content="{Binding item.Option1}" GroupName="answers">
+        </RadioButton>
      
     </VerticalStackLayout>
 </ContentPage>

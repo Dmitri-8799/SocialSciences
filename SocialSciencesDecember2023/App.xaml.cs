@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using SQLite;
 using SocialSciencesDecember2023.RadioButtons3;
 namespace SocialSciencesDecember2023;
 

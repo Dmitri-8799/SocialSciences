@@ -1,11 +1,10 @@
-﻿using System;
-using SQLite;
+﻿using SQLite;
 
-namespace SocialSciencesDecember2023.RadioButtons3
+namespace SocialSciencesDecember2023.Models
 {
     public class TableRB3
     {
-        [PrimaryKey, AutoIncrement, Column("_id")]
+        [PrimaryKey, AutoIncrement, System.ComponentModel.DataAnnotations.Schema.Column("_id")]
         public int Id { get; set; }
 
         public string question

@@ -1,6 +1,5 @@
 ﻿
 
-using Android.Graphics.Drawables;
 
 namespace SocialSciencesDecember2023;
 

@@ -1,4 +1,6 @@
-﻿namespace SocialSciencesDecember2023.RadioButtons3;
+﻿using SocialSciencesDecember2023.Models;
+
+namespace SocialSciencesDecember2023.RadioButtons3;
 
 public partial class QuizActivityRB3 : ContentPage
 {
