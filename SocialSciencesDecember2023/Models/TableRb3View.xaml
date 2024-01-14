@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              
+             x:Class="SocialSciencesEF2024.TableRb3.TableRB3View"
+             Title="TableRB3View">
+    <VerticalStackLayout>
+        <Button Command="{Binding ButtonConfirmClickedCommand}" CommandParameter="{ ????? }, Path=IsChecked}"> </Button>
+
+    
+
+
+       <RadioButton x:Name="option1" x:Uid="1" GroupName="answers" Content="{Binding _option1} " IsChecked="True" RadioButtonGroup.SelectedValue="1">
+<RadioButton.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="CheckedChanged"
+            Command="{Binding RadioButtonIsCheckedCommand}"
+            CommandParameter="1"
+        />
+            </RadioButton.Behaviors>
+        </RadioButton>
+
+
+                   <RadioButton x:Name="option2" x:Uid="2" GroupName="answers" Content="{Binding _option2} " RadioButtonGroup.SelectedValue="2">
+<RadioButton.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="CheckedChanged"
+            Command="{Binding RadioButtonIsCheckedCommand}"
+            CommandParameter="{Binding Source={x:Reference option2}, Path=IsChecked}"
+        />
+            </RadioButton.Behaviors>
+        </RadioButton>
+
+
+<RadioButton x:Name="option3" x:Uid="3" GroupName="answers" Content="{Binding _option3} " RadioButtonGroup.SelectedValue="3">
+<RadioButton.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="CheckedChanged"
+            Command="{Binding RadioButtonIsCheckedCommand}"
+            CommandParameter="{Binding Source={x:Reference option3}, Path=IsChecked}"
+        />
+            </RadioButton.Behaviors>
+        </RadioButton>
+
+        
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>
