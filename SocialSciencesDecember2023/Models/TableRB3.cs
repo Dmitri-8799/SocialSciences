@@ -1,24 +1,22 @@
-﻿using SQLite;
-
-namespace SocialSciencesDecember2023.Models
+using System;
+using Microsoft.EntityFrameworkCore;
+namespace SocialSciencesEF2024.TableRb3
 {
-    public class TableRB3
-    {
-        [PrimaryKey, AutoIncrement, System.ComponentModel.DataAnnotations.Schema.Column("_id")]
-        public int Id { get; set; }
+	public partial class TableRB3
+	{
+	
+        public int id { get ; set; }
+        public string? question { get; set; }
+		public string? option1 { get; set; }
+        public string? option2 { get; set; }
 
-        public string question
-        {
-            get; set;
-        }
+        public string? option3 { get; set; }
+		public int answerNr { get; set; }
 
-        public string Option1 { get; set; }
-        public string Option2 { get; set; }
-        public string Option3 { get; set; }
-        public int AnswerNr { get; set; }
-        public string IfWrong { get; set; }
-        public string IfRight { get; set; }
-
-    }
+        public string? ifRight { get; set; }
+        public string? ifWrong { get; set; }
+        
+	}
 }
+
 
