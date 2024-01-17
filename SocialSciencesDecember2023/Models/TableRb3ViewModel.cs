@@ -1,3 +1,5 @@
+//вопрос 1 - если мы сделали у radiobutton комманду и даже параметр (commandparameter), надо ли нам в ViewModel делать помимо самой команды еще специальный метод bool _Checked
+
 using Microsoft.EntityFrameworkCore;    // для ToListAsync и FirstOrDefaultAsync
 using SocialSciencesEF2024.TableRb3;
 using System.Collections.ObjectModel;
