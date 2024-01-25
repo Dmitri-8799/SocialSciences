@@ -6,3 +6,9 @@
     }
   }
 }
+
+//добавил подключение БД
+"ConnectionStrings": {
+  "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=usersstoredb;Trusted_Connection=True;"
+
+}, "Authorization": "Bearer " + token // token - полученный ранее jwt-токен
