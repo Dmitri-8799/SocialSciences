@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
  
-namespace CustomIdentityApp
+namespace SocialSciencesEF2024
 {
     public class Startup
     {
@@ -18,10 +18,10 @@ namespace CustomIdentityApp
  
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationContext>(options =>
+            services.AddDbContext<ApplicationIdentityContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
  
-            services.AddIdentity<UserOfApp, IdentityRole>()
+            services.AddIdentity<UserOfApp, IdentityRole>() // таким же образом можно добавить объект в конфигурацию сервиса
                 .AddEntityFrameworkStores<ApplicationIdentityContext>();
 /*
           Метод AddIdentity() позволяет установить некоторую начальную конфигурацию. 
@@ -44,7 +44,7 @@ namespace CustomIdentityApp
           
           
                  
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(); //будет какой-то интерфейс, чтоб админить все это. Нужна точка, откуда все это будет управляться. Надо подумать, как лучше View сделать. Придется делать что-то поверх функционала ASP.NET
         }
  
         public void Configure(IApplicationBuilder app)
@@ -70,9 +70,6 @@ namespace CustomIdentityApp
           Затем, чтобы использовать Identity, в методе Configure() устанавливается компонент middeware - UseAuthentication. 
           Причем это middleware вызывается перед app.UseEndpoints(), 
           тем самым гарантируя, что ко времени обращения к системе маршрутизации, контроллерам и их методам, куки должным образом обработаны и установлены.
-
-          А РАЗВЕ ОБЯЗАТЕЛЬНО КУКИ? КАК ТУТ ПЕРЕДЕЛАТЬ НА JWT-токен? 
-          Потому что по аутентификации и авторизации через JWT-токен материалов полно, а вот по регистрации и созданию Identity я не нашел материал...
 
           */
 
