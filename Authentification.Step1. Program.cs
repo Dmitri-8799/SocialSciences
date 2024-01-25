@@ -58,7 +58,9 @@ app.UseAuthorization();
 
 
 app.Map("/login/{username}", (string username) => 
-{
+{//дальше будем добавлять информацию, которая нам понадобится, например, роль
+ //можно в токен закинуть еще и его роль, по которой будет сравниваться
+ 
     var claims = new List<Claim> {new Claim(ClaimTypes.Name, username) }; // а мы сюда не переносим модель UserOfApp, которая существует на этапе регистрации ?
   
     /* создаем JWT-токен: Для создания токена применяется конструктор JwtSecurityToken. 
