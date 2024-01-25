@@ -7,7 +7,7 @@
 
 using System.ComponentModel.DataAnnotations;
  
-namespace CustomIdentityApp.ViewModels
+namespace SocialSciencesEF2024
 {
     public class RegisterViewModel
     {
