@@ -1,18 +1,17 @@
-//https://metanit.com/sharp/aspnet5/16.3.php
-
 @model CustomIdentityApp.ViewModels.RegisterViewModel
+
 <h2>Регистрация нового пользователя</h2>
 <form method="post" asp-controller="Account" asp-action="Register">
     <div asp-validation-summary="ModelOnly"></div>
     <div>
+        <label asp-for="NameOfUser"></label><br />
+        <input asp-for="NameOfUser" />
+        <span asp-validation-for="NameOfUser"></span>
+    </div>
+    <div>
         <label asp-for="Email"></label><br />
         <input asp-for="Email" />
         <span asp-validation-for="Email"></span>
-    </div>
-    <div>
-        <label asp-for="Year"></label><br />
-        <input asp-for="Year" />
-        <span asp-validation-for="Year"></span>
     </div>
     <div>
         <label asp-for="Password"></label><br />
