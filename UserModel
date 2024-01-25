@@ -1,0 +1,17 @@
+using Microsoft.AspNetCore.Identity;
+
+namespace SocialSciencesEF2024.Identity
+{
+    public class UserModel : IdentityUser
+        {
+        public string NameOfUser { get; set; }
+        public string EmailOfUser { get; set; }
+        public string Password { get; set; }
+
+        //а если проверять платность подписки, нам же нужно свойство bool ? Для его изменения с помощью сеттера после оплаты. Кстати сам сделал значение nullable, потому что это уместно. Но даже если не уместно, я все равно собой горжусь :)))) 
+        public bool? Paid { get; set; }
+
+    }
+}
+
+
