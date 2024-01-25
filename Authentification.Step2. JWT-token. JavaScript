@@ -1,0 +1,103 @@
+//тут есть вопросы, поэтому можно параллельно будет открыть ссылку с метанита и посмотреть
+// https://metanit.com/sharp/aspnet6/13.3.php
+
+
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+ 
+// условная бд с пользователями - ЭТО ВЕДЬ УЖЕ НАША БД, КОТОРАЯ СОЗДАЕТСЯ НА ЭТАПЕ РЕГИСТРАЦИИ?
+var people = new List<Person>             // - ВОТ ЭТА ВСТАВКА БЫЛА С МЕТАНИТА
+ {
+    new Person("tom@gmail.com", "12345"),
+    new Person("bob@gmail.com", "55555")
+};
+
+//МЫ ЖЕ МОЖЕМ ЗАМЕНИТЬ ЕЕ УЖЕ НА НАШУ БД С РЕГИСТРАЦИИ ?
+//вот так:
+ApplicationIdentityContext dbOfUsers = new ApplicationIdentityContext();
+var users = dbOfUsers.ToList<UserOfApp>;
+
+
+
+
+ 
+var builder = WebApplication.CreateBuilder();
+ 
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = AuthOptions.ISSUER,
+            ValidateAudience = true,
+            ValidAudience = AuthOptions.AUDIENCE,
+            ValidateLifetime = true,
+            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+            ValidateIssuerSigningKey = true
+         };
+});
+var app = builder.Build();
+ 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+ 
+app.UseAuthentication();
+app.UseAuthorization();
+ 
+app.MapPost("/login", (User loginData) => 
+{
+
+    // Используя полученные данные, пытаемся найти в списке UserOfApp пользователя
+
+    UserOfApp? userOfApp = people.FirstOrDefault(p => p.Email == loginData.Email && p.Password == loginData.Password);
+
+
+    // Если пользователь не найден, то есть переданы некорректные email и/или пароль, то оправляем статусный код 401, который говорит о том, что доступ запрещен:
+    if(userOfApp is null) return Results.Unauthorized();
+
+
+    //Если пользователь найден, то создается список объектов Claim с одним Claim, который представляет email пользователя. Генерируем jwt-токен:
+    var claims = new List<Claim> {new Claim(ClaimTypes.Name, userOfApp.Email) };
+    // создаем JWT-токен
+    var jwt = new JwtSecurityToken(
+            issuer: AuthOptions.ISSUER,
+            audience: AuthOptions.AUDIENCE,
+            claims: claims,
+            expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)),
+            signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+    var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+
+    /* формируем ответ:
+    */ Он отправляется в виде объекта в формате json, который содержит два свойства: access_token - собственно токен и username - email аутентифицированного пользователя
+var response = new { access_token = encodedJwt, username = person.Email }; return Results.Json(response);
+
+    var response = new
+    {
+        access_token = encodedJwt,
+        username = userOfApp.Email
+    };
+ 
+    return Results.Json(response);
+});
+app.Map("/data", [Authorize] () => new { message= "Hello World!" });
+ 
+app.Run();
+ 
+public class AuthOptions
+{
+    public const string ISSUER = "MyAuthServer"; // издатель токена
+    public const string AUDIENCE = "MyAuthClient"; // потребитель токена
+    const string KEY = "mysupersecret_secretsecretsecretkey!123";   // ключ для шифрации
+    public static SymmetricSecurityKey GetSymmetricSecurityKey() => 
+        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
+}
+ 
+record class UserOfApp(string Email, string Password);
