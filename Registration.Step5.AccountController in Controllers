@@ -29,7 +29,7 @@ namespace SocialSciencesEF2024
             _userManager = userManager;
             _signInManager = signInManager;
         }
-      
+    
         [HttpGet]
         public IActionResult Register()
         {
@@ -40,7 +40,7 @@ namespace SocialSciencesEF2024
         {
             if(ModelState.IsValid)
             {
-                User user = new User { Name = model.Name, UserName = model.Email, Year=model.Year};
+                User user = new User { Name = model.UserName, Email = model.EmailOfUser };
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password); /*  С помощью метода _userManager.CreateAsync пользователь добавляется в базу данных. 
                                                                                    */  В качестве параметра передается сам пользователь и его пароль.
