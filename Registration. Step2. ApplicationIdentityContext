@@ -1,0 +1,32 @@
+using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using SocialSciencesEF2024.Identity;
+
+namespace SocialSciencesEF2024.Models.Identity
+{
+    public class ApplicationIdentityContext : IdentityDbContext<User>
+    {
+        public ApplicationIdentityContext(DbContextOptions<ApplicationIdentityContext> options)
+            : base(options)
+        {
+            Database.EnsureCreated();
+        }
+    }
+}
+
+/* после этого шага 
+У нас есть контекст (ApplicationIdentityContext) и модель (UserOfApp), и теперь нам необходима база данных, которая будет хранить все данные. 
+Вначале определим в файле appsettings.json строку подключения:
+
+"ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=usersstoredb;Trusted_Connection=True;"
+  },
+Далее переходим к шагу 3 -  надо изменить класс Startup (МЫ ЕГО СОЗДАЕМ ИЛИ МОЖНО ИСПОЛЬЗОВАТЬ MauiProgram.cs???), 
+чтобы применить все необходимые сервисы для работы с Identity и базой данных.
+
+*/
+
+
+
+
