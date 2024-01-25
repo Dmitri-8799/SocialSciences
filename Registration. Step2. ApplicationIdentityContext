@@ -5,7 +5,7 @@ using SocialSciencesEF2024.Identity;
 
 namespace SocialSciencesEF2024.Models.Identity
 {
-    public class ApplicationIdentityContext : IdentityDbContext<User>
+    public class ApplicationIdentityContext : IdentityDbContext<UserOfApp>
     {
         public ApplicationIdentityContext(DbContextOptions<ApplicationIdentityContext> options)
             : base(options)
@@ -22,6 +22,7 @@ namespace SocialSciencesEF2024.Models.Identity
 "ConnectionStrings": {
     "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=usersstoredb;Trusted_Connection=True;"
   },
+//для практики надо подключиться к этой бд и посмтреть ее поля, классы и тд.
 Далее переходим к шагу 3 -  надо изменить класс Startup (МЫ ЕГО СОЗДАЕМ ИЛИ МОЖНО ИСПОЛЬЗОВАТЬ MauiProgram.cs???), 
 чтобы применить все необходимые сервисы для работы с Identity и базой данных.
 
