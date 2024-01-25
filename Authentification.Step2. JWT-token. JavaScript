@@ -20,7 +20,7 @@ var people = new List<Person>             // - ВОТ ЭТА ВСТАВКА БЫ
 //МЫ ЖЕ МОЖЕМ ЗАМЕНИТЬ ЕЕ УЖЕ НА НАШУ БД С РЕГИСТРАЦИИ ?
 //вот так:
 ApplicationIdentityContext dbOfUsers = new ApplicationIdentityContext();
-var users = dbOfUsers.ToList<UserOfApp>;
+var users = dbOfUsers.ToList<UserOfApp>; // лучше этот метод не вызывать, чтоб не выгружать всех пользователей
 
 
 
