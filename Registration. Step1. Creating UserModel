@@ -10,6 +10,8 @@ namespace SocialSciencesEF2024.Identity
 {
     public class UserOfApp : IdentityUser
         {
+//они уже встроены в IdentityUser, поэтому их можно и убрать
+
         public string NameOfUser { get; set; }
         public string EmailOfUser { get; set; }
         public string Password { get; set; }
