@@ -1,0 +1,47 @@
+/*
+Для представлений контроллера (AccountController) в каталоге Views определим подкаталог Account, 
+в который добавим новое представление Register.cshtml. 
+Это представление будет служить для регистрации пользователя    А НЕЛЬЗЯ ЭТУ РАЗМЕТКУ СДЕЛАТЬ В XAML? ЕСЛИ У НАС .NET MAUI, ТО, МОЖЕТ БЫТЬ, БЫЛО БЫ ЦЕЛЕСООБРАЗНО ИСОПЛЬЗОВАТЬ ИМЕННО XAML?
+*/ 
+
+@model CustomIdentityApp.ViewModels.RegisterViewModel
+<h2>Регистрация нового пользователя</h2>
+<form method="post" asp-controller="Account" asp-action="Register">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Name"></label><br />
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="Email"></label><br />
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label><br />
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div>
+        <label asp-for="PasswordConfirm"></label><br />
+        <input asp-for="PasswordConfirm" />
+        <span asp-validation-for="PasswordConfirm"></span>
+    </div>
+    <div>
+        <input type="submit" value="Регистрация" />
+    </div>
+</form>
+
+
+
+/*
+После удачной регистрации нас переадресует на главную страницу.
+После добавления первого пользователя через окно SQL Server Objects Explorer можно увидеть созданную базу данных
+
+А в самой базе данных в таблице dbo.AspNetUsers мы сможем увидеть добавленного пользователя
+
+*/
+
+
+
