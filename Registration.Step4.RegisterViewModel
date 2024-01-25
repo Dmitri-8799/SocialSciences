@@ -1,0 +1,33 @@
+/*
+Добавим в проект новую папку, которую назовем ViewModels. 
+Затем в этой папке определим новый класс RegisterViewModel, 
+который будет представлять регистрирующегося пользователя
+*/
+
+
+using System.ComponentModel.DataAnnotations;
+ 
+namespace CustomIdentityApp.ViewModels
+{
+    public class RegisterViewModel
+    {
+        [Required]
+        [Display(Name = "Имя Пользователя")]
+        public string UserName { get; set; }
+ 
+        [Required]
+        [Display(Name = "Email")]
+        public string EmailOfUser { get; set; }
+ 
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Пароль")]
+        public string Password { get; set; }
+ 
+        [Required]
+        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Подтвердить пароль")]
+        public string PasswordConfirm { get; set; }
+    }
+}
