@@ -7,7 +7,9 @@
   }
 }
 
-//добавил подключение БД
+//добавил подключение БД - см. Registration.Step2.ApplicationIdentityContext
+
+
 "ConnectionStrings": {
   "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=usersstoredb;Trusted_Connection=True;"
 
