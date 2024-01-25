@@ -1,0 +1,88 @@
+/*
+Для работы с учетными записями пользователей добавим в папку Controllers 
+новый контроллер AccountController и определим в нем метод для регистрации пользователей:
+*/
+
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using CustomIdentityApp.ViewModels;
+using CustomIdentityApp.Models;
+using Microsoft.AspNetCore.Identity;
+
+/*
+Поскольку в классе Startup были добавлены сервисы Identity, то здесь в контроллере через конструктор мы можем их получить. 
+В данном случае мы получаем сервис по управлению пользователями - UserManager и сервис SignInManager, 
+который позволяет аутентифицировать пользователя и устанавливать или удалять его куки. - ОПЯТЬ ЭТИ КУКИ... , КАК НАМ ВМЕСТО КУК СДЕЛАТЬ JWT-токен?
+
+*/
+
+namespace SocialSciencesEF2024
+{
+{
+    public class AccountController : Controller
+    {
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+ 
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+      
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View(); //что такое View? Это конкретный объект, типа новой страницы, где будут все строки для регистрации ИЛИ?
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                User user = new User { Name = model.Name, UserName = model.Email, Year=model.Year};
+                // добавляем пользователя
+                var result = await _userManager.CreateAsync(user, model.Password); /*  С помощью метода _userManager.CreateAsync пользователь добавляется в базу данных. 
+                                                                                   */  В качестве параметра передается сам пользователь и его пароль.
+
+              
+                if (result.Succeeded)                                              /*  Данный метод (CreateAsync) возвращает объект IdentityResult, 
+                                                                                       с помощью которого можно узнать успешность выполненной операции. 
+                                                                                       Вполне возможно, что переданные значения не удовлетворяют требованиям, 
+                                                                                  */   и тогда пользователь не будет добавлен в базу данных. 
+                {
+                  
+                    // установка куки
+                    await _signInManager.SignInAsync(user, false);              /*    
+                                                                                      В случае удачного добавления с помощью метода _signInManager.SignInAsync() 
+                                                                                      устанавливаем аутентификационные куки для добавленного пользователя. 
+                                                                                      В этот метод передается объект пользователя, который аутентифицируется, и логическое значение, 
+                                                                                      указывающее, надо ли сохранять куки в течение продолжительного времени. 
+                                                                                      И далее выполняем переадресацию на главную страницу приложения.
+                                                                                */
+                  
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);    /*    Если добавление прошло неудачно, то добавляем к состоянию модели с помощью метода ModelState 
+                                                                                      */    все возникшие при добавлении ошибки, и отправленная модель возвращается в представление.
+                    }
+                }
+            }
+            return View(model);
+        }
+    }
+
+
+
+
+
+
+
+  Следующий шаг - для представлений этого контроллера в каталоге Views определить подкаталог Account, в который добавим новое представление Register.cshtml. Это представление будет служить для регистрации пользователя (см. Registration.Step6.Register.cshtml)
+
+
+}
