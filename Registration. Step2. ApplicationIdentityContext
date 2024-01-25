@@ -17,7 +17,7 @@ namespace SocialSciencesEF2024.Models.Identity
 
 /* после этого шага 
 У нас есть контекст (ApplicationIdentityContext) и модель (UserOfApp), и теперь нам необходима база данных, которая будет хранить все данные. 
-Вначале определим в файле appsettings.json строку подключения:
+Вначале определим в файле appsettings.json строку подключения: - ЗДЕСЬ В ПРОЕКТЕ В ПАПКЕ Properties ТОЛЬКО ФАЙЛ launchSettings.json
 
 "ConnectionStrings": {
     "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=usersstoredb;Trusted_Connection=True;"
