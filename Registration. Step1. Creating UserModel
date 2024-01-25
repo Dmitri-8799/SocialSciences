@@ -1,8 +1,14 @@
+/*Шаг №1.
+Создание класса UserOfApp в папке Models - класс User представляет пользователя и наследуется от класса IdentityUser,
+перенимая все его свойства. 
+Три основных свойства, требуемых для регистрации - NameOfUser, EmailOfUser, Password
+*/
+
 using Microsoft.AspNetCore.Identity;
 
 namespace SocialSciencesEF2024.Identity
 {
-    public class UserModel : IdentityUser
+    public class UserOfApp : IdentityUser
         {
         public string NameOfUser { get; set; }
         public string EmailOfUser { get; set; }
