@@ -1,0 +1,17 @@
+using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using SocialSciencesEF2024.Identity;
+
+namespace SocialSciencesEF2024.Models.Identity
+{
+    public class ApplicationIdentityContext : IdentityDbContext<User>
+    {
+        public ApplicationIdentityContext(DbContextOptions<ApplicationIdentityContext> options)
+            : base(options)
+        {
+            Database.EnsureCreated();
+        }
+    }
+}
+
